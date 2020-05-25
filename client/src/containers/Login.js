@@ -11,6 +11,9 @@ const useStyles = createUseStyles({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    wrapper: {
+        width: '400px',
+    },
     title: {
         fontSize: '2.5rem',
         textAlign: 'center',
@@ -35,14 +38,16 @@ const Login = ({ login }) => {
 
     return (
         <div className={ classes.container }>
-            <Card>
-                <div className={ classes.title }>SIGN IN</div>
-                <form className={ classes.form } onSubmit={ login }>
-                    <input type='text' placeholder='Login' className={ classes.input }></input>
-                    <input type='password' placeholder='Password' className={ classes.input }></input>
-                    <button type='submit'>Log in</button>
-                </form>
-            </Card>
+            <div className={ classes.wrapper }>
+                <Card>
+                    <div className={ classes.title }>SIGN IN</div>
+                    <form className={ classes.form } onSubmit={ login }>
+                        <input type='text' placeholder='Login' className={ classes.input }></input>
+                        <input type='password' placeholder='Password' className={ classes.input }></input>
+                        <button type='submit'>Log in</button>
+                    </form>
+                </Card>
+            </div>
         </div>
     )
 }

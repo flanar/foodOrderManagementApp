@@ -66,7 +66,7 @@ const Poll = () => {
     }
 
     const options = optionsArray.map(option => (
-        <div onClick={ () => { handleClick(option.id) } }>
+        <div key={ option.id } onClick={ () => { handleClick(option.id) } }>
             <div className={ classes.votesBar } style={ totalVotes ? { width: `${option.votes / totalVotes * 100}%` } : { width: 0 }}></div>
             <div className={ classes.option }>
                 { option.restaurantName } ({ option.votes })
