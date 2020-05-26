@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { createUseStyles } from 'react-jss'
+
+import { CTX } from '../Store'
 
 import Card from './Card'
 
@@ -34,38 +36,17 @@ const useStyles = createUseStyles({
 const Poll = () => {
     const classes = useStyles()
 
-    const [totalVotes, setTotalVotes] = useState(0)
-    const [optionsArray, setOptionsArray] = useState([])
-
-    useEffect(() => {
-        setOptionsArray([
-            {
-                id: 1,
-                restaurantName: 'Grzybki',
-                votes: 0
-            },
-            {
-                id: 2,
-                restaurantName: 'Joker',
-                votes: 0
-            },
-            {
-                id: 3,
-                restaurantName: 'Lider Kebab',
-                votes: 0
-            }
-        ])
-    }, [])
+    const { dispatch, totalVotes, restaurantOptions } = useContext(CTX)
 
     const handleClick = id => {
-        const options = [...optionsArray]
+        const options = [...restaurantOptions]
         const index = options.findIndex(item => item.id === id)
         options[index].votes += 1
-        setOptionsArray(options)
-        setTotalVotes(totalVotes + 1)
+        dispatch({ type: 'RESTAURANT_OPTIONS', payload: options })
+        dispatch({ type: 'TOTAL_VOTES', payload: totalVotes + 1 })
     }
 
-    const options = optionsArray.map(option => (
+    const options = restaurantOptions.map(option => (
         <div key={ option.id } onClick={ () => { handleClick(option.id) } }>
             <div className={ classes.votesBar } style={ totalVotes ? { width: `${option.votes / totalVotes * 100}%` } : { width: 0 }}></div>
             <div className={ classes.option }>

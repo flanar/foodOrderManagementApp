@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
+import Store from './Store'
 import Navbar from './containers/Navbar'
 import Login from './containers/Login'
 import Order from './containers/Order'
@@ -31,8 +32,10 @@ const App = () => {
 
     return (
         <Router>
-            <Navbar isAuthorized={ isAuthorized } logout={ logout }/>
-            { isAuthorized ? authorized : noAuthorized }
+            <Store>
+                <Navbar isAuthorized={ isAuthorized } logout={ logout }/>
+                { isAuthorized ? authorized : noAuthorized }
+            </Store>
         </Router>
     )
 }
