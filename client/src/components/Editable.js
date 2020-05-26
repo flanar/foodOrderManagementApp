@@ -10,15 +10,21 @@ const useStyles = createUseStyles({
         backgroundColor: 'rgba(0, 0, 0, 0.3)',
         borderRadius: '8px',
     },
+    header: {
+        backgroundColor: 'rgba(255, 0, 0, 0.2)',
+    },
     order: {
         marginBottom: '10px',
-        width: '600px',
+        width: '900px',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
+    headerWrapper: {
+        width: '830px',
+    },
     addButton: {
-        width: '600px',
+        width: '900px',
     },
     deleteButton: {
         width: '50px',
@@ -57,6 +63,7 @@ const Editable = () => {
 
     const orderList = orders.map((order, index) => (
         <div key={ index } className={ classes.order }>
+            <div className={ classes.editable }>{ order.user }</div>
             { order.user === user.name ? <input type='text' value={ order.name } onChange={ e => { inputClickHandler(e, 'name', index) } } /> : <div className={ classes.editable }>{ order.name }</div> }
             { order.user === user.name ? <input type='text' value={ order.food } onChange={ e => { inputClickHandler(e, 'food', index) } } /> : <div className={ classes.editable }>{ order.food }</div> }
             { order.user === user.name ? <button className={ classes.deleteButton } onClick={ () => { deleteOrderHandler(index) } }>-</button> : <button className={ classes.disabledDeleteButton }>-</button> }
@@ -65,6 +72,11 @@ const Editable = () => {
 
     return (
         <div>
+            <div className={ [classes.order, classes.headerWrapper].join(' ') }>
+                <div className={ [classes.editable, classes.header].join(' ') }>Who</div>
+                <div className={ [classes.editable, classes.header].join(' ') }>For whom</div>
+                <div className={ [classes.editable, classes.header].join(' ') }>What</div>
+            </div>
            { orderList }
            <button className={ classes.addButton } onClick={ addNewOrder }>+</button>
         </div>

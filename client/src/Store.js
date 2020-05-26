@@ -40,6 +40,13 @@ const initialState = {
 
 const reducer = (state, action) => {
     switch(action.type) {
+        case 'USER':
+            return {
+                ...state,
+                user: {
+                    name: action.payload
+                }
+            }
         case 'ORDERS':
             return {
                 ...state,
