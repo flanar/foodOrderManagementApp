@@ -45,6 +45,7 @@ button::-moz-focus-inner {
 
 input {
   padding: 0.6rem 1rem;
+  width: 260px;
   background-color: rgba(0, 0, 0, 0.5);
   border: none;
   border-radius: 8px;
