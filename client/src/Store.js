@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react'
+import React, { createContext, useReducer, useEffect } from 'react'
 
 export const CTX = createContext()
 
@@ -20,22 +20,25 @@ const initialState = {
         }
     ],
     totalVotes: 0,
-    restaurantOptions: [
-        {
-            id: 1,
-            restaurantName: 'Grzybki',
-            votes: 0
-        },
-        {
-            id: 2,
-            restaurantName: 'Joker',
-            votes: 0
-        },
-        {
-            id: 3,
-            restaurantName: 'Lider Kebab',
-            votes: 0
-        }
+    // restaurants: [
+    //     {
+    //         id: 1,
+    //         restaurantName: 'Grzybki',
+    //         votes: 0
+    //     },
+    //     {
+    //         id: 2,
+    //         restaurantName: 'Joker',
+    //         votes: 0
+    //     },
+    //     {
+    //         id: 3,
+    //         restaurantName: 'Lider Kebab',
+    //         votes: 0
+    //     }
+    // ],
+    restaurants: [
+
     ]
 }
 
@@ -60,10 +63,11 @@ const reducer = (state, action) => {
                 ...state,
                 totalVotes: action.payload
             }
-        case 'RESTAURANT_OPTIONS':
+        case 'RESTAURANT':
+            console.log(action.payload)
             return {
                 ...state,
-                restaurantOptions: [
+                restaurants: [
                     ...action.payload
                 ]
             }
@@ -75,10 +79,22 @@ const reducer = (state, action) => {
 const Store = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState)
 
-    const { user, orders, totalVotes, restaurantOptions } = state
+    const { user, orders, totalVotes, restaurants } = state
+
+    const url = 'http://localhost:8000/api/'
+
+    const getRestaurants = async () => {
+        const response = await fetch(url + 'restaurant')
+        const data = await response.json()
+        dispatch({ type: 'RESTAURANT', payload: data })
+    }
+
+    useEffect(() => {
+        getRestaurants()
+    }, [])
 
     return (
-        <CTX.Provider value={{ dispatch, user ,orders, totalVotes, restaurantOptions }}>
+        <CTX.Provider value={{ dispatch, user ,orders, totalVotes, restaurants }}>
             { children }
         </CTX.Provider>
     )

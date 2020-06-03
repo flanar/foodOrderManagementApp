@@ -3,7 +3,6 @@ import { createUseStyles } from 'react-jss'
 
 import Card from './Card'
 import Editable from './Editable'
-import Select from './Select'
 
 const useStyles = createUseStyles({
     container: {
@@ -18,9 +17,6 @@ const OrderCard = () => {
 
     return (
         <div className={ classes.container }>
-            <Card>
-                <Select />
-            </Card>
             <Card>
                 <Editable />
             </Card>

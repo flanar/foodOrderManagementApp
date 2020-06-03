@@ -54,3 +54,22 @@ input {
 input:focus {
   background-color: rgba(0, 0, 0, 0.6);
 }
+
+/* scrollbar styles */
+
+.scrollbar {
+  scrollbar-color: rgba(0, 0, 0, 0.5) transparent;
+  scrollbar-width: thin;
+}
+
+.scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+   
+.scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.5); 
+}

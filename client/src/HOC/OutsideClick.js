@@ -14,11 +14,11 @@ const useOutsideClick = (ref, clickHandler) => {
     })
 }
 
-const OutsideClick = props => {
+const OutsideClick = ({ children, clickHandler }) => {
     const wrapperRef = useRef(null)
-    useOutsideClick(wrapperRef, props.clickHandler)
+    useOutsideClick(wrapperRef, clickHandler)
 
-    return <div ref={ wrapperRef }>{ props.children }</div>
+    return <div ref={ wrapperRef }>{ children }</div>
 }
 
 export default OutsideClick

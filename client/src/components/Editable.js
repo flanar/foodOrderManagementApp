@@ -1,6 +1,8 @@
 import React, { useContext } from 'react'
 import { createUseStyles } from 'react-jss'
 
+import Select from './Select'
+
 import { CTX } from '../Store'
 
 const useStyles = createUseStyles({
@@ -21,7 +23,7 @@ const useStyles = createUseStyles({
         justifyContent: 'space-between',
     },
     headerWrapper: {
-        width: '830px',
+        width: '826px',
     },
     addButton: {
         width: '900px',
@@ -64,9 +66,9 @@ const Editable = () => {
     const orderList = orders.map((order, index) => (
         <div key={ index } className={ classes.order }>
             <div className={ classes.editable }>{ order.user }</div>
-            { order.user === user.name ? <input type='text' value={ order.name } onChange={ e => { inputClickHandler(e, 'name', index) } } /> : <div className={ classes.editable }>{ order.name }</div> }
+            { order.user === user.name ? <Select defaultOption='Karol' options={['Karol', 'Dorota', 'Kamil', 'Piotr', 'Bartek']}/> : <div className={ classes.editable }>{ order.name }</div> }
             { order.user === user.name ? <input type='text' value={ order.food } onChange={ e => { inputClickHandler(e, 'food', index) } } /> : <div className={ classes.editable }>{ order.food }</div> }
-            { order.user === user.name ? <button className={ classes.deleteButton } onClick={ () => { deleteOrderHandler(index) } }>-</button> : <button className={ classes.disabledDeleteButton }>-</button> }
+            { order.user === user.name ? <button className={ classes.deleteButton } onClick={ () => { deleteOrderHandler(index) } }>X</button> : <button className={ classes.disabledDeleteButton }>-</button> }
         </div>
     ))
 

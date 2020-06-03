@@ -39,32 +39,33 @@ const useStyles = createUseStyles({
 const Poll = () => {
     const classes = useStyles()
 
-    const { dispatch, user, totalVotes, restaurantOptions } = useContext(CTX)
+    const { dispatch, user, totalVotes, restaurants } = useContext(CTX)
 
     const handleClick = id => {
         if(!user.choosenRestaurantId) {
-            const options = [...restaurantOptions]
-            const addIndex = options.findIndex(item => item.id === id)
-            options[addIndex].votes += 1
+            const options = [...restaurants]
+            const addIndex = options.findIndex(item => item.restaurant_id === id)
+            options[addIndex].restaurant_votes += 1
             user.choosenRestaurantId = id
-            dispatch({ type: 'RESTAURANT_OPTIONS', payload: options })
+            dispatch({ type: 'RESTAURANT', payload: options })
+            //todo patch request
             dispatch({ type: 'TOTAL_VOTES', payload: totalVotes + 1 })
         } else if(user.choosenRestaurantId && user.choosenRestaurantId !== id ) {
-            const options = [...restaurantOptions]
-            const addIndex = options.findIndex(item => item.id === id)
-            options[addIndex].votes += 1
-            const removeIndex = options.findIndex(item => item.id === user.choosenRestaurantId)
-            options[removeIndex].votes -= 1
+            const options = [...restaurants]
+            const addIndex = options.findIndex(item => item.restaurant_id === id)
+            options[addIndex].restaurant_votes += 1
+            const removeIndex = options.findIndex(item => item.restaurant_id === user.choosenRestaurantId)
+            options[removeIndex].restaurant_votes -= 1
             user.choosenRestaurantId = id
-            dispatch({ type: 'RESTAURANT_OPTIONS', payload: options })
+            dispatch({ type: 'RESTAURANT', payload: options })
         }
     }
 
-    const options = restaurantOptions.map(option => (
-        <div key={ option.id } onClick={ () => { handleClick(option.id) } }>
-            <div className={ [classes.votesBar, option.id === user.choosenRestaurantId ? classes.userChoice : null].join(' ') } style={ totalVotes ? { width: `${option.votes / totalVotes * 100}%` } : { width: 0 }}></div>
+    const options = restaurants.map(option => (
+        <div key={ option.restaurant_id } onClick={ () => { handleClick(option.restaurant_id) } }>
+            <div className={ [classes.votesBar, option.restaurant_id === user.choosenRestaurantId ? classes.userChoice : null].join(' ') } style={ totalVotes ? { width: `${option.restaurant_votes / totalVotes * 100}%` } : { width: 0 }}></div>
             <div className={ classes.option }>
-                { option.restaurantName } ({ option.votes })
+                { option.restaurant_name } ({ option.restaurant_votes })
             </div>
         </div>
     ))
