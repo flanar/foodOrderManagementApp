@@ -4,7 +4,8 @@ export const CTX = createContext()
 
 const initialState = {
     user: {
-        name: 'Piotr'
+        name: 'Piotr',
+        choosenRestaurantId: null
     },
     orders: [
         {
