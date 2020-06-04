@@ -4,8 +4,8 @@ export const CTX = createContext()
 
 const initialState = {
     user: {
-        name: 'Piotr',
-        choosenRestaurantId: null
+        username: 'Piotr',
+        restaurant_id: null
     },
     restaurants: [],
     totalVotes: 0,
@@ -43,7 +43,7 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 user: {
-                    name: action.payload
+                    ...action.payload
                 }
             }
         case 'ORDERS':
@@ -83,8 +83,19 @@ const Store = ({ children }) => {
         dispatch({ type: 'RESTAURANT', payload: data })
     }
 
+    const getUser = async user_id => {
+        const response = await fetch(`${apiUrl}user/${user_id}/`)
+        const data = await response.json()
+        const user = {
+            username: data.username,
+            restaurant_id: data.user_info.restaurant_id
+        }
+        dispatch({ type: 'USER', payload: user })
+    }
+
     useEffect(() => {
         getRestaurants()
+        getUser(2)
     }, [])
 
     return (

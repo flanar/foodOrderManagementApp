@@ -1,12 +1,12 @@
 from django.contrib import admin
-from .models import Restaurant, User, Order
+from .models import Restaurant, UserInfo, Order
 
 @admin.register(Restaurant)
 class Restaurant (admin.ModelAdmin):
     pass
 
-@admin.register(User)
-class User (admin.ModelAdmin):
+@admin.register(UserInfo)
+class UserInfo (admin.ModelAdmin):
     pass
 
 @admin.register(Order)

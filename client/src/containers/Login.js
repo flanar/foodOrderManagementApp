@@ -38,16 +38,34 @@ const useStyles = createUseStyles({
 const Login = ({ login }) => {
     const classes = useStyles()
 
-    const { dispatch } = useContext(CTX)
+    const { apiUrl } = useContext(CTX)
 
     const [credentials, setCredentials] = useState({login: '', password: ''})
 
+    const generateToken = async (username, password) => {
+        const response = await fetch(`${apiUrl}token/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        })
+        const data = await response.json()
+        return data
+    }
+
     const submitHandler = e => {
         e.preventDefault()
-        if(credentials.login.trim() !== '' && credentials.password.trim() !== '') {
-            dispatch({ type: 'USER', payload: credentials.login })
-            login()
-        }
+        generateToken(credentials.login, credentials.password)
+        .then(data => {
+            console.log(data)
+            if(credentials.login.trim() !== '' && credentials.password.trim() !== '' && data && data.access) {
+                login()
+            }
+        })
     }
     
     const setLogin = e => {

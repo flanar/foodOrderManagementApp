@@ -53,7 +53,7 @@ const Editable = () => {
     }
 
     const addNewOrder = () => {
-        const newOrders = [...orders, { user: user.name, name: '', food: '' }]
+        const newOrders = [...orders, { user: user.username, name: '', food: '' }]
         dispatch({ type: 'ORDERS', payload: newOrders })
     }
 
@@ -66,9 +66,9 @@ const Editable = () => {
     const orderList = orders.map((order, index) => (
         <div key={ index } className={ classes.order }>
             <div className={ classes.editable }>{ order.user }</div>
-            { order.user === user.name ? <Select defaultOption='Karol' options={['Karol', 'Dorota', 'Kamil', 'Piotr', 'Bartek']}/> : <div className={ classes.editable }>{ order.name }</div> }
-            { order.user === user.name ? <input type='text' value={ order.food } onChange={ e => { inputClickHandler(e, 'food', index) } } /> : <div className={ classes.editable }>{ order.food }</div> }
-            { order.user === user.name ? <button className={ classes.deleteButton } onClick={ () => { deleteOrderHandler(index) } }>X</button> : <button className={ classes.disabledDeleteButton }>-</button> }
+            { order.user === user.username ? <Select defaultOption='Karol' options={['Karol', 'Dorota', 'Kamil', 'Piotr', 'Bartek']}/> : <div className={ classes.editable }>{ order.name }</div> }
+            { order.user === user.username ? <input type='text' value={ order.food } onChange={ e => { inputClickHandler(e, 'food', index) } } /> : <div className={ classes.editable }>{ order.food }</div> }
+            { order.user === user.username ? <button className={ classes.deleteButton } onClick={ () => { deleteOrderHandler(index) } }>X</button> : <button className={ classes.disabledDeleteButton }>-</button> }
         </div>
     ))
 

@@ -8,7 +8,7 @@ import Order from './containers/Order'
 import Payment from './containers/Payment'
 
 const App = () => {
-    const [isAuthorized, setIsAuthorized] = useState(true)
+    const [isAuthorized, setIsAuthorized] = useState(false)
 
     const login = () => {
         setIsAuthorized(true)
