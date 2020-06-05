@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { createUseStyles } from 'react-jss'
+import jwtDecode from 'jwt-decode'
 
 import { CTX } from '../Store'
 
@@ -62,6 +63,12 @@ const Login = ({ login }) => {
         generateToken(credentials.login, credentials.password)
         .then(data => {
             console.log(data)
+            if(data.access) {
+                console.log(data.access)
+                const decoded = jwtDecode(data.access)
+                console.log(decoded)
+                console.log(decoded.user_id)
+            }
             if(credentials.login.trim() !== '' && credentials.password.trim() !== '' && data && data.access) {
                 login()
             }
